@@ -29,7 +29,7 @@ print "Read ".(@haps)." seed haplotypes.\n";
 my $seq;
 
 #Note that here the reference sequence is the entire length of the sequence contig! I use a separate line to truncate the sequence as needed;
-map {chomp; $seq = $_} `tail +2 sourceData/helera1_demo_Herato1603.fa | paste -s | sed 's/\\t//g'`;  
+map {chomp; $seq = $_} `tail -n +2 sourceData/helera1_demo_Herato1603.fa | paste -s | sed 's/\\t//g'`;  
 #Here the truncation
 #$seq = substr($seq, 3350000, 300000);
 #my $offset = 100000;
