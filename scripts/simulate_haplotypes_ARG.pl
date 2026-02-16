@@ -40,7 +40,7 @@ my $line = 0;
 my @recomb_intervals;
 my @treeSeq; 
 
-map {s/\[//; s/\](.+)//;push @treeSeq, $1; push @recomb_intervals, [ ($line, $line+$_) ]; $line+=$_} `tail +5 "simARG/mspms_"$tag"_rep$rep.out"`;
+map {s/\[//; s/\](.+)//;push @treeSeq, $1; push @recomb_intervals, [ ($line, $line+$_) ]; $line+=$_} `tail -n +5 "simARG/mspms_"$tag"_rep$rep.out"`;
 
 my %last_out_leaves;
 
