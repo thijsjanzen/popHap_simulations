@@ -28,6 +28,23 @@ wget http://ftp.tuebingen.mpg.de/fml/ag-chan/haplotagging/simulations/add.hdr 2&
 wget http://ftp.tuebingen.mpg.de/fml/ag-chan/haplotagging/simulations/header_cols.vcf 2&> ../log/setup.err.log 
 wget http://ftp.tuebingen.mpg.de/fml/ag-chan/haplotagging/simulations/vcf.header 2&> ../log/setup.err.log 
 
+
+echo "
+ fixing HAPCUT=1 issue...
+ ";
+
+zcat PC062_merged_Herato1603.3.45Mb.PL.AD.HAPCUT2.vcf.gz \
+| sed 's/ID=HAPCUT=1/ID=HAPCUT/' \
+| sed 's/HAPCUT=1/HAPCUT/g' \
+| bgzip -c > fixed.vcf.gz
+
+mv fixed.vcf.gz PC062_merged_Herato1603.3.45Mb.PL.AD.HAPCUT2.vcf.gz
+tabix -p vcf PC062_merged_Herato1603.3.45Mb.PL.AD.HAPCUT2.vcf.gz
+
+echo "
+  running bcftools...
+";
+
 bcftools query -f "[\t%GT]\n" PC062_merged_Herato1603.3.45Mb.PL.AD.HAPCUT2.vcf.gz | sed 's/[|/]/\t/g;s/^\t//' | datamash transpose | sed 's/\t//g' | sort > PC062_merged_Herat1603_3.45Mb.simBlock.horiz.sorted 
 bcftools query -f "%CHROM\t%POS\t%REF\t%ALT\n" PC062_merged_Herato1603.3.45Mb.PL.AD.HAPCUT2.vcf.gz > PC062_merged_Herato1603.3.45Mb.PL.AD.HAPCUT2.pos
 for i in `seq 0 2 967`; do echo "hap_"$i; done > sample.names
