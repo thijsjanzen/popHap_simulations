@@ -74,7 +74,7 @@ start_time=$(date +%s)
 
 for i in $(seq 0 967); do
     ((count++))
-    bwa mem -O 20 -E 20 -B 1 sourceData/helera1_demo_Herato1603.fa simFastq/hap_$i.$tag.bwa.read1.fastq.gz simFastq/hap_$i.$tag.bwa.read2.fastq.gz -O BAM | samtools sort - -O BAM -o simBam/$tag/hap_$i.$tag.bam; done 2> log/$tag.dwgsim.stderr.log
+    bwa mem -O 20 -E 20 -B 1 sourceData/helera1_demo_Herato1603.fa simFastq/hap_$i.$tag.bwa.read1.fastq.gz simFastq/hap_$i.$tag.bwa.read2.fastq.gz -O BAM | samtools sort - -O BAM -o simBam/$tag/hap_$i.$tag.bam 2> log/$tag.dwgsim.stderr.log
 
     # ---- Time calculations ----
     now=$(date +%s)
